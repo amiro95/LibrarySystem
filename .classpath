@@ -33,6 +33,11 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/amir.s.al.ghafar/Documents/MyIPCS/QCP/jdeli-trial.jar"/>
 	<classpathentry kind="lib" path="C:/Users/amir.s.al.ghafar/Documents/MyIPCS/QCP/jai-codec-1.1.3.jar"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
 		<attributes>
 			<attribute name="optional" value="true"/>

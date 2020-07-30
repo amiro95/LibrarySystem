@@ -16,5 +16,7 @@ public class UpdateUserRequest {
 	private String name;
 
 	private String role;
+	
+	private String updatedRole;
 
 }

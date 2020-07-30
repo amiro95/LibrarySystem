@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.ribbon.proxy.annotation.Content;
@@ -31,7 +32,7 @@ public class BooksController {
 	LibraryService libraryService;
 
 	@GetMapping("/{bookId}")
-	public ResponseEntity<GetBookTestResponse> readBook(@Content HttpServletResponse http, @PathVariable Integer bookId) {
+	public ResponseEntity<GetBookTestResponse> readBook(@Content HttpServletResponse http,  @RequestParam Integer bookId) {
 
 		return libraryService.getBook(bookId);
 
@@ -72,15 +73,15 @@ public class BooksController {
 	}
 
 	@Transactional
-	@DeleteMapping(path = "/{bookId}/{userId}")
+	@DeleteMapping(path = "/{bookId}")
 	public Object deleteFile(@Content HttpServletResponse http, @PathVariable Integer bookId,
-			@PathVariable Integer userId) throws Exception {
+			@RequestParam String role) throws Exception {
 
 		MessageResponse response = new MessageResponse();
 		String message = "Book Deleted!";
 
 		try {
-			libraryService.deleteBook(bookId, userId);
+			libraryService.deleteBook(bookId, role);
 			response.setMessage(message);
 
 			return response;

@@ -29,7 +29,7 @@ public class UsersService {
 		if (request.getRole().equals("LIBRARIAN")) {
 			UsersEntity userEntity = new UsersEntity();
 			userEntity.setName(request.getName());
-			userEntity.setRole(request.getRole());
+			userEntity.setRole(request.getNewRole());
 			usersRepository.save(userEntity);
 		} else {
 			throw new Exception("Invalid role!");
@@ -54,7 +54,7 @@ public class UsersService {
 		if (request.getRole().equals("LIBRARIAN")) {
 			UsersEntity userEntity = new UsersEntity();
 			userEntity.setUserId(request.getUserId());
-			userEntity.setRole(request.getRole());
+			userEntity.setRole(request.getUpdatedRole());
 			userEntity.setName(request.getName());
 			usersRepository.save(userEntity);
 		} else {
@@ -65,12 +65,14 @@ public class UsersService {
 
 	public void deleteUser(Integer userId, Integer deleteId) throws Exception {
 		UsersEntity userInfo = usersRepository.findByUserId(userId);
-		if ((userInfo.getRole().equals("MEMBER") && userId.equals(deleteId)) || (userInfo.getRole().equals("MEMBER"))) {
+		System.out.println(userInfo.getRole() + userId + deleteId);
+		
+		if ((userInfo.getRole().equals("MEMBER") && userId.equals(deleteId)) || (userInfo.getRole().equals("LIBRARIAN"))) {
 			// Find managed Entity reference
-			BooksEntity book = entity.find(BooksEntity.class, userId);
+			UsersEntity user = entity.find(UsersEntity.class, deleteId);
 
 			// Call remove method to remove the entity
-			entity.remove(book);
+			entity.remove(user);
 		} else {
 			throw new Exception("Unauthorised action!");
 		}

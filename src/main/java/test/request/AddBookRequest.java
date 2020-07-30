@@ -14,5 +14,7 @@ public class AddBookRequest {
 	private String bookTitle;
 
 	private Integer userId;
+	
+	private String role;
 
 }

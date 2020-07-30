@@ -14,5 +14,7 @@ public class AddUserRequest {
 	private String name;
 
 	private String role;
+	
+	private String newRole;
 
 }

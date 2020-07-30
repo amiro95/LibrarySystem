@@ -31,9 +31,9 @@ public class UsersController {
 	UsersService usersService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public Object readUser(@Content HttpServletResponse http, @RequestParam Integer bookId) {
+	public Object readUser(@Content HttpServletResponse http, @RequestParam Integer userId) {
 
-		GetUsersTestResponse response = usersService.getUser(bookId);
+		GetUsersTestResponse response = usersService.getUser(userId);
 
 		return response;
 
@@ -44,7 +44,7 @@ public class UsersController {
 			throws Exception {
 
 		MessageResponse response = new MessageResponse();
-		String message = "Book Added!";
+		String message = "User Added!";
 
 		try {
 			usersService.addUser(request);
@@ -62,7 +62,7 @@ public class UsersController {
 			throws Exception {
 
 		MessageResponse response = new MessageResponse();
-		String message = "Book Updated!";
+		String message = "User Updated!";
 
 		try {
 			usersService.updateUser(request);
@@ -75,7 +75,7 @@ public class UsersController {
 	}
 
 	@Transactional
-	@DeleteMapping(path = "/{bookId}/{deleteId}")
+	@DeleteMapping(path = "/{userId}/{deleteId}")
 	public Object deleteUser(@Content HttpServletResponse http, @PathVariable Integer userId,
 			@PathVariable Integer deleteId) throws Exception {
 

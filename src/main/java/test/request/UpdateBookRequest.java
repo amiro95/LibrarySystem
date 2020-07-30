@@ -18,5 +18,7 @@ public class UpdateBookRequest {
 	private Integer userId;
 
 	private String action;
+	
+	private String role;
 
 }

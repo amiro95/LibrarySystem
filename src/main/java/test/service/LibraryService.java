@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import test.dto.BooksEntity;
-import test.dto.UsersEntity;
 import test.repository.BooksRepository;
 import test.repository.UsersRepository;
 import test.request.AddBookRequest;
@@ -32,9 +31,7 @@ public class LibraryService {
 
 	public void addBook(AddBookRequest request) throws Exception {
 
-		UsersEntity userInfo = usersRepository.findByUserId(request.getUserId());
-
-		if (userInfo.getRole().equals("LIBRARIAN")) {
+		if (request.getRole().equals("LIBRARIAN")) {
 			BooksEntity bookEntity = new BooksEntity();
 			bookEntity.setBookTitle(request.getBookTitle());
 			bookEntity.setStatus("AVAILABLE");
@@ -55,15 +52,13 @@ public class LibraryService {
 		response.setBookTitle(bookInfo.getBookTitle());
 		response.setStatus(bookInfo.getStatus());
 
-
 		return new ResponseEntity(response, HttpStatus.OK);
 
 	}
 
 	public void updateBook(UpdateBookRequest request) throws Exception {
-		UsersEntity userInfo = usersRepository.findByUserId(request.getUserId());
-
-		if (userInfo.getRole().equals("LIBRARIAN")) {
+		System.out.println(request.getRole() + "LIBRARIAN");
+		if (request.getRole().equalsIgnoreCase("LIBRARIAN")) {
 			BooksEntity bookEntity = new BooksEntity();
 			bookEntity.setBookId(request.getBookId());
 			bookEntity.setBookTitle(request.getBookTitle());
@@ -83,10 +78,9 @@ public class LibraryService {
 
 	}
 
-	public void deleteBook(Integer bookId, Integer userId) throws Exception {
-		UsersEntity userInfo = usersRepository.findByUserId(userId);
+	public void deleteBook(Integer bookId, String role) throws Exception {
 
-		if (userInfo.getRole().equals("LIBRARIAN")) {
+		if (role.equals("LIBRARIAN")) {
 			// Find managed Entity reference
 			BooksEntity book = entity.find(BooksEntity.class, bookId);
 
