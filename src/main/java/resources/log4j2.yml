@@ -1,0 +1,37 @@
+Configuration:
+  name: Default
+  status: WARN
+  Properties:
+    Property:
+      name: log-pattern
+      value: "%d{yyyy-MM-dd HH:mm:ss,SSS} %5p [%X{X-B3-TraceId}-%X{X-B3-SpanId}] [%t] %l - %m%n"
+  Appenders:
+    Console:
+      name: ConsoleAppender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: ${log-pattern}
+    RollingFile:
+      - name: RollingFileAppender
+        fileName: logs/analytics-service.log
+        filePattern: "logs/analytics-service-%d{yyyyMMdd}-%i.log"
+        PatternLayout:
+          pattern: ${log-pattern}
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 50MB
+        DefaultRollOverStrategy:
+          max: 100
+  Loggers:
+      Root:
+        level: INFO
+        AppenderRef:
+          - ref: ConsoleAppender
+          - ref: RollingFileAppender
+      Logger:
+        - name: com.dosm.myipcs.co
+          additivity: false
+          level: DEBUG
+          AppenderRef:
+            - ref: ConsoleAppender
+            - ref: RollingFileAppender
