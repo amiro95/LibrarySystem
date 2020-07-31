@@ -4,15 +4,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,9 +31,10 @@ import test.service.LibraryService;
 public class BooksController {
 
 	@Autowired
+	@Qualifier("libraryService")
 	LibraryService libraryService;
 
-	@GetMapping("/{bookId}")
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<GetBookTestResponse> readBook(@Content HttpServletResponse http,  @RequestParam Integer bookId) {
 
 		return libraryService.getBook(bookId);
